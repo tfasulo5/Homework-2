@@ -1,0 +1,36 @@
+Sub StockTotal()
+    Dim Ticker_Symbol As String
+    Dim Volume_Total As Double
+    Volume_Total = 0
+    
+    Dim Summary_Total_Row As Integer
+    Summary_Total_Row = 2
+    
+    
+    
+    For Each ws In Worksheets
+        Dim WorksheetName As String
+            LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+            WorksheetName = ws.Name
+            ws.Cells(1, 9).Value = "Ticker"
+            ws.Cells(1, 10).Value = "Volume"
+    
+    For i = 2 To LastRow
+        
+        If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+            Ticker_Symbol = ws.Cells(i, 1).Value
+            Volume_Total = Volume_Total + ws.Cells(i, 7).Value
+            ws.Range("I" & Summary_Total_Row).Value = Ticker_Symbol
+            ws.Range("J" & Summary_Total_Row).Value = Volume_Total
+            Summary_Total_Row = Summary_Total_Row + 1
+            Volume_Total = 0
+        
+        Else
+            
+            Volume_Total = Volume_Total + Cells(i, 7).Value
+        
+        End If
+        
+    Next i
+    
+    Summary_Total_Row = 2
